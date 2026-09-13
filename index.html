@@ -1,67 +1,21 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08060f">
-  <meta name="description" content="LuckyWin — experiencia gaming inmersiva 3D con juegos demo, motion y diseño cinematográfico.">
-  <meta name="robots" content="index,follow">
-  <title>LuckyWin — Immersive Gaming Experience</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#05050a"><meta name="description" content="LuckyWin — lobby gaming inmersivo 3D y experiencias demo."><title>LuckyWin — Immersive Gaming Lobby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div id="cursor-glow" aria-hidden="true"></div>
-  <canvas id="scene" aria-hidden="true"></canvas>
-  <div class="noise" aria-hidden="true"></div>
-
-  <header class="nav">
-    <a class="brand" href="#inicio" aria-label="LuckyWin inicio"><span class="brand-mark">♛</span><span>Lucky<span>Win</span></span></a>
-    <nav class="nav-links" aria-label="Navegación">
-      <a class="active" href="#inicio">Inicio</a><a href="#juegos">Juegos</a><a href="#promos">Promociones</a><a href="#torneos">Torneos</a><a href="#vip">VIP</a>
-    </nav>
-    <div class="nav-actions"><button class="btn ghost" data-toast="El acceso de cuenta estará disponible en una versión futura.">Iniciar sesión</button><a class="btn gold" href="#juegos">Jugar demo <span>↗</span></a></div>
-    <button class="menu" id="menu" aria-label="Abrir menú">☰</button>
-  </header>
-
-  <main>
-    <section class="hero" id="inicio">
-      <div class="hero-copy reveal">
-        <div class="eyebrow">✦ EXPERIENCIA DE NUEVA GENERACIÓN</div>
-        <h1>Entrá al juego.<br><em>Viví el momento.</em></h1>
-        <p>Un casino digital conceptual donde 3D, motion, sonido visual y microinteracciones convierten cada clic en una experiencia cinematográfica.</p>
-        <div class="hero-actions"><a class="btn gold large" href="#juegos">Explorar juegos <span>→</span></a><button class="btn glass large" id="experience">Ver experiencia</button></div>
-        <div class="trust"><span>◈ Demo sin dinero real</span><span>◈ Diseño para adultos</span><span>◈ Juego responsable</span></div>
-      </div>
-      <div class="hero-stage reveal delay" id="hero-stage"><div class="orbital"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core"><span>LW</span></div></div><div class="floating-chip chip-a">777</div><div class="floating-chip chip-b">21</div><div class="stage-label"><i></i> LIVE EXPERIENCE</div></div>
-    </section>
-
-    <section class="metrics"><div><strong>∞</strong><span>imaginación</span></div><div><strong>4</strong><span>juegos demo</span></div><div><strong>60</strong><span>FPS target</span></div><div><strong>3D</strong><span>motion system</span></div></section>
-
-    <section class="section" id="juegos">
-      <div class="section-head reveal"><div><div class="eyebrow">CATÁLOGO</div><h2>Elegí tu próxima <em>experiencia</em></h2></div><span class="live-pill">● DEMO MODE</span></div>
-      <div class="games-grid">
-        <article class="game-card violet reveal" data-game="roulette"><div class="game-art"><div class="roulette-mini"><div class="roulette-ball"></div><span>0</span><span>7</span><span>21</span><span>32</span></div><b>LIVE</b></div><div class="game-info"><div><h3>Neon Roulette</h3><p>Ruleta interactiva · demo</p></div><button class="play" data-open="roulette">Jugar <span>→</span></button></div></article>
-        <article class="game-card gold-card reveal" data-game="blackjack"><div class="game-art cards"><div class="card c1">A♠</div><div class="card c2">K♦</div><b>21</b></div><div class="game-info"><div><h3>Royal Blackjack</h3><p>Mesa premium · demo</p></div><button class="play" data-open="blackjack">Jugar <span>→</span></button></div></article>
-        <article class="game-card cyan reveal" data-game="slots"><div class="game-art slots"><div>7</div><div>7</div><div>7</div><b>777</b></div><div class="game-info"><div><h3>Cosmic Slots</h3><p>Arcade espacial · demo</p></div><button class="play" data-open="slots">Jugar <span>→</span></button></div></article>
-        <article class="game-card rose reveal" data-game="baccarat"><div class="game-art baccarat"><span>P</span><span>B</span><span>♛</span><b>VIP</b></div><div class="game-info"><div><h3>Golden Baccarat</h3><p>Sala exclusiva · demo</p></div><button class="play" data-open="baccarat">Jugar <span>→</span></button></div></article>
-      </div>
-    </section>
-
-    <section class="feature" id="promos"><div class="feature-copy reveal"><div class="eyebrow">MOTION SYSTEM</div><h2>Todo se mueve.<br><em>Todo responde.</em></h2><p>El cursor altera la luz, la profundidad y los elementos flotantes. El movimiento se siente orgánico sin depender de contenido privado, cuentas o servicios externos.</p><a class="btn glass" href="#juegos">Explorar interacción →</a></div><div class="motion-panel reveal"><div class="pulse-orb"></div><div class="scan"></div><span>CURSOR / MOTION<br>ACTIVE</span></div></section>
-
-    <section class="promo" id="torneos"><div class="promo-inner reveal"><div><div class="eyebrow">EVENTOS</div><h2>Competí. <em>Descubrí.</em><br>Volvé a jugar.</h2><p>Rankings y desafíos conceptuales preparados para una futura plataforma de experiencias competitivas, siempre con reglas claras y herramientas de juego responsable.</p></div><div class="leader"><div><span>#01</span><b>Lucky Player</b><strong>9,840</strong></div><div><span>#02</span><b>Neon Star</b><strong>8,210</strong></div><div><span>#03</span><b>Royal Ace</b><strong>7,940</strong></div></div></div></section>
-
-    <section class="vip" id="vip"><div class="reveal"><div class="eyebrow">NUEVO NIVEL</div><h2>El universo VIP<br><em>empieza acá.</em></h2><p>Una capa premium de misiones, eventos y recompensas visuales para una futura experiencia de membresía.</p><button class="btn gold" data-toast="La experiencia VIP está en desarrollo.">Descubrir beneficios →</button></div><div class="vip-orb reveal"><span>♛</span></div></section>
-  </main>
-
-  <footer><a class="brand" href="#inicio"><span class="brand-mark">♛</span><span>Lucky<span>Win</span></span></a><p>Immersive gaming, reinvented.</p><div><a href="#responsable">Juego responsable</a><a href="#privacidad">Privacidad</a><a href="#terminos">Términos</a></div><small>Experiencia demostrativa. No procesa dinero real ni apuestas reales.</small></footer>
-
-  <dialog id="game-modal"><div class="modal-head"><div><span class="eyebrow" id="modal-kicker">DEMO</span><h2 id="modal-title">Juego</h2></div><button id="close-modal" class="close">×</button></div><div id="game-area"></div><p class="demo-note">Modo demostración: créditos virtuales sin valor monetario. Jugá de forma responsable.</p></dialog>
-  <div id="toast" role="status" aria-live="polite"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
+<body><canvas id="scene" aria-hidden="true"></canvas><div class="noise"></div><div class="cursor-glow" id="cursor-glow"></div>
+<header class="nav"><a class="brand" href="#inicio"><span class="brand-mark">♛</span><span>LUCKY<span>WIN</span></span></a><nav class="nav-links" id="nav-links"><a href="#juegos">Juegos</a><a href="#eventos">Eventos</a><a href="#vip">VIP</a><a href="#cuenta">Cuenta</a></nav><div class="nav-actions"><a class="btn glass" href="#cuenta">Ingresar</a><a class="btn gold" href="#juegos">Entrar al lobby ↗</a></div><button class="menu" id="menu" aria-label="Abrir menú">☰</button></header>
+<main>
+<section class="hero" id="inicio"><div class="hero-copy"><div class="eyebrow"><i></i> LUCKYWIN OS <b></b> IMMERSIVE GAMING</div><h1>No mires el juego.<br><em>Entrá en él.</em></h1><p>Un lobby digital de nueva generación con 3D en tiempo real, interfaces cinemáticas y 50 experiencias preparadas para jugar con créditos virtuales.</p><div class="hero-actions"><a class="btn gold large" href="#juegos">Explorar lobby →</a><a class="btn glass large" href="#cuenta">Crear cuenta ↗</a></div><div class="hero-meta"><span>◈ Demo segura</span><span>◈ 10.000 créditos virtuales</span><span>◈ WebGL realtime</span></div></div><div class="hero-stage" id="hero-stage"><div class="stage-frame"><div class="stage-grid"></div><div class="stage-scan"></div><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="hero-core"><span>LW</span><small>LIVE</small></div><div class="float-card fc1"><small>BLACKJACK</small><strong>21</strong></div><div class="float-card fc2"><small>ROULETTE</small><strong>00</strong></div><div class="float-card fc3"><small>SLOTS</small><strong>777</strong></div><div class="stage-hud"><span><i></i> SYSTEM ONLINE</span><b>REALTIME 3D</b></div></div></div></section>
+<section class="ticker"><div><strong>50</strong><span>experiencias</span></div><div><strong>10</strong><span>mecánicas</span></div><div><strong>3D</strong><span>WebGL</span></div><div><strong>60</strong><span>FPS target</span></div><div><strong>24/7</strong><span>lobby demo</span></div></section>
+<section class="section" id="juegos"><div class="section-top"><div><span class="section-kicker">THE LOBBY</span><h2>Elegí cómo querés<br><em>entrar en juego.</em></h2></div><p>Experiencias destacadas y un catálogo conceptual. Cada tarjeta responde al movimiento y abre una simulación interactiva.</p></div><div class="game-grid">
+<article class="game-card violet"><div class="game-art"><span class="tag">LIVE 3D</span><span class="index">01</span><div class="roulette-art"><i></i><b>00</b><span>7</span><span>21</span></div></div><div class="game-info"><div><small>DEMO · TABLE</small><h3>Neon Roulette</h3><p>Ruleta inmersiva</p></div><button class="play" data-game="roulette">Jugar →</button></div></article>
+<article class="game-card gold-card"><div class="game-art"><span class="tag">TABLE</span><span class="index">02</span><div class="cards-art"><b>A♠</b><b>K♥</b></div></div><div class="game-info"><div><small>DEMO · 21</small><h3>Royal Blackjack</h3><p>Mesa premium</p></div><button class="play" data-game="blackjack">Jugar →</button></div></article>
+<article class="game-card cyan"><div class="game-art"><span class="tag">ARCADE</span><span class="index">03</span><div class="slots-art"><b>7</b><b>◆</b><b>7</b></div></div><div class="game-info"><div><small>DEMO · ARCADE</small><h3>Cosmic Slots</h3><p>Reels luminosos</p></div><button class="play" data-game="slots">Jugar →</button></div></article>
+<article class="game-card rose"><div class="game-art"><span class="tag">ELITE</span><span class="index">04</span><div class="baccarat-art"><b>P</b><b>B</b><b>♛</b></div></div><div class="game-info"><div><small>DEMO · VIP</small><h3>Golden Baccarat</h3><p>Sala exclusiva</p></div><button class="play" data-game="baccarat">Jugar →</button></div></article></div><div class="catalog-banner"><div><span class="section-kicker">FULL CATALOG</span><h3>50 juegos. Una sala.</h3><p>Ruleta, blackjack, baccarat, slots, dados, wheel, plinko, keno y más.</p></div><a class="btn gold" href="#cuenta">Explorar catálogo ↗</a></div></section>
+<section class="experience" id="eventos"><div class="experience-copy"><span class="section-kicker">MOTION / EVENTS</span><h2>El lobby<br><em>nunca queda quieto.</em></h2><p>Luz, profundidad, partículas y microinteracciones construyen una experiencia cercana a un videojuego premium.</p><div class="feature-list"><span><b>01</b> Movimiento reactivo</span><span><b>02</b> Interfaces vivas</span><span><b>03</b> Eventos y rankings</span></div></div><div class="event-visual"><div class="event-ring"></div><div class="event-core"><span>LIVE</span><strong>24/7</strong></div><div class="event-particle ep1"></div><div class="event-particle ep2"></div><div class="event-label">EVENT STREAM<br><b>ACTIVE</b></div></div></section>
+<section class="account" id="cuenta"><div><span class="section-kicker">LUCKYWIN ID</span><h2>Tu cuenta.<br><em>Tu universo.</em></h2><p>Creá un perfil demo y entrá al lobby. Esta web pública contiene solamente experiencia visual y créditos sin valor monetario.</p><div class="account-actions"><a class="btn gold large" href="#juegos">Crear cuenta ↗</a><button class="btn glass large" id="login">Iniciar sesión</button></div></div><div class="account-card"><div class="account-head"><span>SECURE DEMO</span><i>●</i></div><div class="avatar">♛</div><strong>LUCKYWIN PLAYER</strong><p>Access layer / ready</p><div class="balance"><span>DEMO BALANCE</span><b>10.000</b><small>CRÉDITOS</small></div><div class="account-foot"><span>AUTH 01</span><span>READY</span></div></div></section>
+<section class="vip" id="vip"><div><span class="section-kicker">VIP / PRIVATE ROOM</span><h2>Subí de nivel.<br><em>Entrá al lounge.</em></h2><p>Una capa visual premium para futuras membresías, misiones y experiencias especiales.</p><a class="btn gold" href="#cuenta">Descubrir VIP ↗</a></div><div class="vip-visual"><div></div><strong>VIP</strong><span>PRIVATE ROOM</span></div></section>
+</main><footer><a class="brand" href="#inicio"><span class="brand-mark">♛</span><span>LUCKY<span>WIN</span></span></a><p>Immersive gaming experience · Public demo</p><div><a href="#vip">VIP</a><a href="#cuenta">Cuenta</a><a href="#eventos">Eventos</a></div><small>Experiencia demostrativa. No procesa dinero real, depósitos, retiros ni apuestas reales.</small></footer>
+<dialog id="game-modal"><button class="modal-close" id="close-modal">×</button><span class="section-kicker">DEMO EXPERIENCE</span><h2 id="modal-title">Juego</h2><div id="game-area"></div><p class="modal-note">Modo demostración · créditos virtuales sin valor monetario.</p></dialog><div id="toast" role="status" aria-live="polite"></div><script src="app.js"></script></body></html>
