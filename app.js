@@ -1,11 +1,114 @@
-const glow=document.getElementById('cursor-glow'),stage=document.getElementById('hero-stage');addEventListener('pointermove',e=>{if(glow){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'}if(stage){const r=stage.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;stage.style.transform=`perspective(1000px) rotateY(${x*4}deg) rotateX(${-y*4}deg)`}});stage?.addEventListener('mouseleave',()=>stage.style.transform='');
-const menu=document.getElementById('menu'),nav=document.getElementById('nav-links');menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu?.setAttribute('aria-expanded','false')}));
-const toast=document.getElementById('toast');function showToast(text){if(!toast)return;toast.textContent=text;toast.classList.add('show');clearTimeout(window.__lwToast);window.__lwToast=setTimeout(()=>toast.classList.remove('show'),2600)}
-const modal=document.getElementById('game-modal'),area=document.getElementById('game-area'),title=document.getElementById('modal-title');document.getElementById('close-modal')?.addEventListener('click',()=>modal.close());modal?.addEventListener('click',e=>{if(e.target===modal)modal.close()});
-function openGame(type){modal.showModal();const names={roulette:'Neon Roulette',blackjack:'Royal Blackjack',slots:'Cosmic Slots',baccarat:'Golden Baccarat'};title.textContent=names[type]||'LuckyWin Game';if(type==='roulette')roulette();else if(type==='blackjack')blackjack();else if(type==='slots')slots();else baccarat()}
-document.querySelectorAll('[data-game]').forEach(b=>b.addEventListener('click',()=>openGame(b.dataset.game)));
-function roulette(){area.innerHTML=`<div class="mini-game"><p>Elegí un número y activá la simulación.</p><div class="result" id="rr">—</div><div class="game-controls">${[0,7,13,21,32].map(n=>`<button data-pick="${n}">${n}</button>`).join('')}<button class="primary" id="spin">Girar</button></div></div>`;let pick=null;area.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{pick=b.dataset.pick;document.getElementById('rr').textContent='Elegiste '+pick});document.getElementById('spin').onclick=()=>{const n=[0,7,13,21,32,4,18,29][Math.floor(Math.random()*8)];document.getElementById('rr').textContent=n+(String(n)===pick?' · coincidencia demo':' · resultado demo')}}
-function blackjack(){area.innerHTML=`<div class="mini-game"><p>Pedí cartas hasta acercarte a 21.</p><div class="result" id="bj">0</div><div class="game-controls"><button class="primary" id="hit">Pedir carta</button><button id="stand">Plantarse</button><button id="reset">Reiniciar</button></div></div>`;let total=0;document.getElementById('hit').onclick=()=>{total+=Math.floor(Math.random()*10)+2;document.getElementById('bj').textContent=total;if(total>21)showToast('Pasaste 21 · ronda demo terminada')};document.getElementById('stand').onclick=()=>showToast('Plantado en '+total+' · resultado demo');document.getElementById('reset').onclick=()=>{total=0;document.getElementById('bj').textContent=0}}
-function slots(){area.innerHTML=`<div class="mini-game"><p>Tres símbolos. Una animación. Cero dinero real.</p><div class="slot-window"><span id="s1">7</span><span id="s2">7</span><span id="s3">7</span></div><button class="btn gold" id="roll">Girar 777</button></div>`;document.getElementById('roll').onclick=()=>{const a=['7','★','◆','✦'];['s1','s2','s3'].forEach(id=>document.getElementById(id).textContent=a[Math.floor(Math.random()*a.length)]);showToast('Resultado generado en modo demo')}}
-function baccarat(){area.innerHTML=`<div class="mini-game"><p>Simulá una mano sin valor monetario.</p><div class="result" id="bc">—</div><div class="game-controls"><button class="primary" id="deal">Simular ronda</button></div></div>`;document.getElementById('deal').onclick=()=>document.getElementById('bc').textContent=['PLAYER','BANKER','TIE'][Math.floor(Math.random()*3)]}
-const canvas=document.getElementById('scene');if(canvas&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches){const ctx=canvas.getContext('2d'),stars=Array.from({length:90},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.5+.3,s:Math.random()*.0005+.0002}));function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}resize();addEventListener('resize',resize);function loop(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of stars){p.y-=p.s;if(p.y<0)p.y=1;ctx.beginPath();ctx.arc(p.x*innerWidth,p.y*innerHeight,p.r,0,Math.PI*2);ctx.fillStyle='rgba(246,207,103,.55)';ctx.fill()}requestAnimationFrame(loop)}loop()}
+(() => {
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const menu = $('#menu');
+  const mobileNav = $('#mobile-nav');
+  const heroVisual = $('#hero-visual');
+  const scene = $('.scene-3d');
+
+  // Mobile navigation
+  const setMenu = (open) => {
+    mobileNav?.classList.toggle('open', open);
+    menu?.setAttribute('aria-expanded', String(open));
+    menu?.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  };
+  menu?.addEventListener('click', () => setMenu(!mobileNav?.classList.contains('open')));
+  $$('.mobile-nav a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+  // Subtle real-time 3D tilt. Disabled on touch/reduced-motion for stability and battery.
+  const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pointerOK = window.matchMedia('(pointer: fine)').matches;
+  if (scene && heroVisual && motionOK && pointerOK) {
+    heroVisual.addEventListener('pointermove', (event) => {
+      const rect = heroVisual.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      scene.style.transform = `rotateX(${-y * 4}deg) rotateY(${x * 5}deg)`;
+    });
+    heroVisual.addEventListener('pointerleave', () => { scene.style.transform = ''; });
+  }
+
+  // Demo game modal
+  const modal = $('#game-modal');
+  const area = $('#game-area');
+  const title = $('#modal-title');
+  const close = $('#close-modal');
+  const toast = $('#toast');
+  let toastTimer;
+
+  const showToast = (message) => {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  };
+
+  const closeModal = () => {
+    if (modal?.open) modal.close();
+  };
+  close?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
+
+  const gameNames = {
+    roulette: 'Neon Roulette',
+    blackjack: 'Royal Blackjack',
+    slots: 'Cosmic Slots',
+    baccarat: 'Golden Baccarat'
+  };
+
+  const roulette = () => {
+    area.innerHTML = `<div class="mini-game"><p>Elegí un número y activá la simulación.</p><div class="result" id="rr">—</div><div class="game-controls">${[0,7,13,21,32].map((n) => `<button type="button" data-pick="${n}">${n}</button>`).join('')}<button class="primary" id="spin" type="button">Girar</button></div></div>`;
+    let pick = null;
+    $$('.game-controls [data-pick]', area).forEach((button) => button.addEventListener('click', () => {
+      pick = button.dataset.pick;
+      $('#rr', area).textContent = `Elegiste ${pick}`;
+    }));
+    $('#spin', area)?.addEventListener('click', () => {
+      const result = [0,7,13,21,32,4,18,29][Math.floor(Math.random() * 8)];
+      $('#rr', area).textContent = `${result}${String(result) === pick ? ' · coincidencia demo' : ' · resultado demo'}`;
+    });
+  };
+
+  const blackjack = () => {
+    area.innerHTML = `<div class="mini-game"><p>Pedí cartas hasta acercarte a 21.</p><div class="result" id="bj">0</div><div class="game-controls"><button class="primary" id="hit" type="button">Pedir carta</button><button id="stand" type="button">Plantarse</button><button id="reset" type="button">Reiniciar</button></div></div>`;
+    let total = 0;
+    $('#hit', area)?.addEventListener('click', () => {
+      if (total > 21) return;
+      total += Math.floor(Math.random() * 10) + 2;
+      $('#bj', area).textContent = total;
+      if (total > 21) showToast('Pasaste 21 · ronda demo terminada');
+    });
+    $('#stand', area)?.addEventListener('click', () => showToast(`Plantado en ${total} · resultado demo`));
+    $('#reset', area)?.addEventListener('click', () => { total = 0; $('#bj', area).textContent = '0'; });
+  };
+
+  const slots = () => {
+    area.innerHTML = `<div class="mini-game"><p>Tres símbolos. Una animación. Cero dinero real.</p><div class="slot-window"><span id="s1">7</span><span id="s2">7</span><span id="s3">7</span></div><button class="button button-gold" id="roll" type="button">Girar 777</button></div>`;
+    const symbols = ['7', '★', '◆', '✦'];
+    $('#roll', area)?.addEventListener('click', () => {
+      ['s1', 's2', 's3'].forEach((id) => { $(`#${id}`, area).textContent = symbols[Math.floor(Math.random() * symbols.length)]; });
+      showToast('Resultado generado en modo demo');
+    });
+  };
+
+  const baccarat = () => {
+    area.innerHTML = `<div class="mini-game"><p>Simulá una mano sin valor monetario.</p><div class="result" id="bc">—</div><div class="game-controls"><button class="primary" id="deal" type="button">Simular ronda</button></div></div>`;
+    $('#deal', area)?.addEventListener('click', () => { $('#bc', area).textContent = ['PLAYER', 'BANKER', 'TIE'][Math.floor(Math.random() * 3)]; });
+  };
+
+  const openGame = (type) => {
+    if (!modal || !area || !title) return;
+    title.textContent = gameNames[type] || 'LuckyWin Game';
+    if (typeof modal.showModal === 'function') modal.showModal();
+    else modal.setAttribute('open', '');
+    ({ roulette, blackjack, slots, baccarat }[type] || roulette)();
+  };
+
+  $$('[data-game]').forEach((button) => button.addEventListener('click', () => openGame(button.dataset.game)));
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+
+  // Keep the demo clearly virtual and update the footer year automatically.
+  const year = $('#year');
+  if (year) year.textContent = new Date().getFullYear();
+})();
