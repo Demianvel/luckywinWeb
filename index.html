@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LuckyWin AI Brain</title>
+<style>
+:root{color-scheme:dark}body{margin:0;font-family:Inter,system-ui,sans-serif;background:#070a10;color:#eef2ff}main{max-width:1100px;margin:auto;padding:48px 20px}.grid{display:grid;grid-template-columns:1.4fr .8fr;gap:20px}section{background:#0e1420;border:1px solid #202b3d;border-radius:18px;padding:24px}textarea{width:100%;box-sizing:border-box;min-height:150px;background:#090d15;color:#fff;border:1px solid #29364b;border-radius:12px;padding:14px}button{margin-top:12px;padding:12px 18px;border:0;border-radius:10px;background:#fff;color:#05070b;font-weight:700;cursor:pointer}.pill{display:inline-block;padding:6px 10px;border:1px solid #2b3b55;border-radius:99px;margin:4px}.out{white-space:pre-wrap;background:#090d15;padding:14px;border-radius:12px;margin-top:16px;max-height:500px;overflow:auto}small{color:#98a5ba}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style></head>
+<body><main>
+<h1>LuckyWin AI Brain</h1><p><small>Agentic control plane · quantum-inspired planning · bounded autonomy</small></p>
+<div class="grid"><section><h2>Nuevo objetivo</h2><textarea id="goal" placeholder="Ej.: Analiza la arquitectura de una aplicación web y propone mejoras de seguridad."></textarea><br><button onclick="run('plan')">Planificar</button> <button onclick="run('execute')">Ejecutar</button><div id="out" class="out">Esperando objetivo…</div></section>
+<section><h2>Sistema</h2><div id="health">Consultando…</div><h3>Agentes</h3><div id="agents"></div><h3>Modelo</h3><small>Configurable mediante variables de entorno en el backend. No se exponen claves en este frontend.</small></section></div>
+</main><script>
+const API=localStorage.getItem('BRAIN_API')||'http://localhost:8000';
+async function load(){try{const h=await fetch(API+'/health').then(r=>r.json());health.innerHTML=`<span class="pill">${h.status}</span><span class="pill">${h.quantum_layer}</span><span class="pill">autonomy=${h.autonomy}</span>`;const a=await fetch(API+'/agents').then(r=>r.json());agents.innerHTML=a.map(x=>`<span class="pill">${x.name}</span>`).join('')}catch(e){health.textContent='Backend no disponible: '+e.message}}
+async function run(mode){out.textContent='Procesando…';try{const r=await fetch(API+'/brain/execute',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({goal:goal.value,mode})});out.textContent=JSON.stringify(await r.json(),null,2)}catch(e){out.textContent=e.message}}
+load();
+</script></body></html>
